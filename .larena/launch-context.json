@@ -1,9 +1,9 @@
 {
   "schema": "larena.package_launch_context.v1",
   "package": "larena/queue",
-  "launch_record_ref": "specs/implementation-planning/launch-records/queue-repository-enforcement-baseline.json",
+  "launch_record_ref": "specs/implementation-planning/launch-records/queue-package-local-scope-check.json",
   "specs_repo": "simai/larena-specs",
-  "specs_commit": "7c580ae",
+  "specs_commit": "966150b",
   "selected_features": [
     "queue.runtime_governor",
     "queue.job_descriptor_registry",
@@ -13,22 +13,14 @@
     "queue.admin_observability"
   ],
   "allowed_files": [
-    ".gitignore",
-    ".env.example",
-    "README.md",
     "composer.json",
-    "module.yaml",
-    "phpstan.neon.dist",
-    ".github/workflows/larena-package-ci.yml",
-    ".githooks/pre-commit",
-    ".githooks/pre-push",
-    ".larena/spec-ref.json",
     ".larena/launch-context.json",
-    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/README.md",
-    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/file-map.json",
-    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/deviations.json",
-    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/graph-sync-proposal.json",
-    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/independent-review.md"
+    "tools/larena-scope-check.php",
+    "docs/project-management/evidence/runtime-security/batch-2/queue-scope-check/README.md",
+    "docs/project-management/evidence/runtime-security/batch-2/queue-scope-check/commands.md",
+    "docs/project-management/evidence/runtime-security/batch-2/queue-scope-check/file-map.json",
+    "docs/project-management/evidence/runtime-security/batch-2/queue-scope-check/deviations.json",
+    "docs/project-management/evidence/runtime-security/batch-2/queue-scope-check/graph-sync-proposal.json"
   ],
   "forbidden_files": [
     "src/*",
@@ -36,19 +28,24 @@
     "database/*",
     "routes/*",
     "resources/*",
-    "tests/*"
+    "tests/*",
+    "module.yaml",
+    "README.md"
   ],
   "forbidden_behavior": [
-    "runtime_implementation",
-    "production_logic",
-    "direct_larena_specs_update_by_package_agent"
+    "runtime_contract_change",
+    "production_behavior_change",
+    "direct_larena_specs_update_by_package_agent",
+    "migration_or_route_change",
+    "evidence_without_scope_check"
   ],
-  "evidence_path": "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/",
-  "graph_sync_proposal_path": "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/graph-sync-proposal.json",
-  "status": "repository_enforcement_baseline_pending_review",
+  "evidence_path": "docs/project-management/evidence/runtime-security/batch-2/queue-scope-check/",
+  "graph_sync_proposal_path": "docs/project-management/evidence/runtime-security/batch-2/queue-scope-check/graph-sync-proposal.json",
+  "status": "package_local_scope_check_pending_review",
   "repository_enforcement_installed": true,
-  "coding_started": false,
-  "review_completed": true,
-  "review_status": "passed_for_enforcement_baseline",
-  "next_transition": "fast_forward_merge_enforcement_to_main_then_prepare_contract_implementation_launch"
+  "coding_started": true,
+  "review_completed": false,
+  "review_status": "pending",
+  "next_transition": "run_package_quality_gate_then_review_and_merge",
+  "base_commit": "a5a1523"
 }
