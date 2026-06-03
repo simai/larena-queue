@@ -1,0 +1,54 @@
+{
+  "schema": "larena.package_launch_context.v1",
+  "package": "larena/queue",
+  "launch_record_ref": "specs/implementation-planning/launch-records/queue-repository-enforcement-baseline.json",
+  "specs_repo": "simai/larena-specs",
+  "specs_commit": "7c580ae",
+  "selected_features": [
+    "queue.runtime_governor",
+    "queue.job_descriptor_registry",
+    "queue.job_lifecycle_storage",
+    "queue.priority_scheduler",
+    "queue.runtime_profiles",
+    "queue.admin_observability"
+  ],
+  "allowed_files": [
+    ".gitignore",
+    ".env.example",
+    "README.md",
+    "composer.json",
+    "module.yaml",
+    "phpstan.neon.dist",
+    ".github/workflows/larena-package-ci.yml",
+    ".githooks/pre-commit",
+    ".githooks/pre-push",
+    ".larena/spec-ref.json",
+    ".larena/launch-context.json",
+    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/README.md",
+    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/file-map.json",
+    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/deviations.json",
+    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/graph-sync-proposal.json",
+    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/independent-review.md"
+  ],
+  "forbidden_files": [
+    "src/*",
+    "config/*",
+    "database/*",
+    "routes/*",
+    "resources/*",
+    "tests/*"
+  ],
+  "forbidden_behavior": [
+    "runtime_implementation",
+    "production_logic",
+    "direct_larena_specs_update_by_package_agent"
+  ],
+  "evidence_path": "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/",
+  "graph_sync_proposal_path": "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/graph-sync-proposal.json",
+  "status": "repository_enforcement_baseline_pending_review",
+  "repository_enforcement_installed": true,
+  "coding_started": false,
+  "review_completed": true,
+  "review_status": "passed_for_enforcement_baseline",
+  "next_transition": "fast_forward_merge_enforcement_to_main_then_prepare_contract_implementation_launch"
+}

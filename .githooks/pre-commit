@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+set -eu
+
+test -f .larena/spec-ref.json
+test -f .larena/launch-context.json
+test -f docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/graph-sync-proposal.json

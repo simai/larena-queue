@@ -1,0 +1,12 @@
+{
+  "schema": "larena.graph_sync_proposal.v1",
+  "package": "larena/queue",
+  "batch": "runtime-security/batch-0/queue-repository-transition",
+  "proposal_type": "no_canonical_graph_update",
+  "summary": "Repository enforcement baseline installed. Runtime implementation still requires a separate launch record.",
+  "canonical_update_requested": false,
+  "evidence_refs": [
+    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/README.md",
+    "docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/deviations.json"
+  ]
+}

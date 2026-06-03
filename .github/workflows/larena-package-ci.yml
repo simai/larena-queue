@@ -1,0 +1,27 @@
+name: Larena Package CI
+
+on:
+  push:
+    branches: ["main", "codex/**"]
+  pull_request:
+
+jobs:
+  enforcement-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Larena enforcement metadata
+        run: |
+          test -f .larena/spec-ref.json
+          test -f .larena/launch-context.json
+          test -f docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/README.md
+          test -f docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/graph-sync-proposal.json
+          test -f docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/independent-review.md
+      - name: Verify no runtime implementation directories exist in baseline
+        run: |
+          test ! -d src
+          test ! -d config
+          test ! -d database
+          test ! -d routes
+          test ! -d resources
+          test ! -d tests

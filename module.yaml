@@ -1,0 +1,16 @@
+name: queue
+package: larena/queue
+status: enforcement-baseline
+edition: core
+product_layer: runtime-security
+license: Apache-2.0
+title: Larena Queue
+description: Mandatory system package for governed background execution, load smoothing, retry, timeout, worker supervision and hosting-safe operation scheduling across Larena packages.
+canonical_specs:
+  repository: simai/larena-specs
+  commit: 7c580ae
+  package_spec: specs/packages/queue/package.json
+  features: specs/packages/queue/features.json
+implementation:
+  runtime_code_started: false
+  launch_record_required: true

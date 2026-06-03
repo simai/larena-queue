@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+set -eu
+
+test -f docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/README.md
+test -f docs/project-management/evidence/runtime-security/batch-0/queue-repository-transition/independent-review.md
+test ! -d src
+test ! -d config
+test ! -d database
+test ! -d routes
+test ! -d resources
+test ! -d tests

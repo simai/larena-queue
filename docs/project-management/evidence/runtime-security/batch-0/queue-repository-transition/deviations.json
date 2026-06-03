@@ -1,0 +1,12 @@
+{
+  "schema": "larena.evidence_deviations.v1",
+  "package": "larena/queue",
+  "batch": "runtime-security/batch-0/queue-repository-transition",
+  "deviations": [
+    {
+      "type": "runtime_implementation_not_started",
+      "decision": "repository_enforcement_baseline_only",
+      "blocking_for_runtime_codegen": true
+    }
+  ]
+}
