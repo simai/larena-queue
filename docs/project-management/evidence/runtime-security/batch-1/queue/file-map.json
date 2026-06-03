@@ -1,0 +1,30 @@
+{
+  "schema": "larena.package_batch_file_map.v1",
+  "package": "larena/queue",
+  "batch": "runtime-security/batch-1/queue",
+  "launch_record": "larena.launch.queue.batch_1_contract_skeletons",
+  "allowed_files_changed": [
+    "composer.json",
+    "module.yaml",
+    "src/Contracts/JobDescriptor.php",
+    "src/Contracts/QueueRuntime.php",
+    "src/Contracts/QueueJob.php",
+    "src/Contracts/QueueDecision.php",
+    "src/Enums/JobStatus.php",
+    "src/Enums/QueuePriority.php",
+    "src/Enums/RuntimeProfile.php",
+    "tests/Unit/JobDescriptorContractTest.php",
+    "tests/Unit/QueueRuntimeFailsClosedTest.php"
+  ],
+  "evidence_files_created": [
+    "docs/project-management/evidence/runtime-security/batch-1/queue/implementation-summary.md",
+    "docs/project-management/evidence/runtime-security/batch-1/queue/tests.md",
+    "docs/project-management/evidence/runtime-security/batch-1/queue/smoke.md",
+    "docs/project-management/evidence/runtime-security/batch-1/queue/file-map.json",
+    "docs/project-management/evidence/runtime-security/batch-1/queue/deviations.json",
+    "docs/project-management/evidence/runtime-security/batch-1/queue/graph-sync-proposal.json",
+    "docs/project-management/evidence/runtime-security/batch-1/queue/code-review-feedback.md"
+  ],
+  "forbidden_files_touched": [],
+  "forbidden_runtime_created": false
+}

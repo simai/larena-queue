@@ -1,6 +1,6 @@
 name: queue
 package: larena/queue
-status: enforcement-baseline
+status: contract-skeleton
 edition: core
 product_layer: runtime-security
 license: Apache-2.0
@@ -12,5 +12,6 @@ canonical_specs:
   package_spec: specs/packages/queue/package.json
   features: specs/packages/queue/features.json
 implementation:
-  runtime_code_started: false
+  runtime_code_started: true
+  current_batch: runtime-security/batch-1/queue
   launch_record_required: true

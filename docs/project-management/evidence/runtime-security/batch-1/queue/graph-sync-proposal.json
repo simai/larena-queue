@@ -1,0 +1,15 @@
+{
+  "schema": "larena.graph_sync_proposal.v1",
+  "package": "larena/queue",
+  "batch": "runtime-security/batch-1/queue",
+  "status": "no_canonical_graph_change_requested",
+  "source_commit": "pending_commit",
+  "findings": [
+    {
+      "type": "implementation_evidence",
+      "summary": "The existing queue graph/package specs were sufficient for the first interface-first contract skeleton batch.",
+      "canonical_change_required": false
+    }
+  ],
+  "must_not_apply_automatically": true
+}
