@@ -3,7 +3,7 @@
   "package": "larena/queue",
   "batch": "runtime-security/batch-1/queue",
   "status": "no_canonical_graph_change_requested",
-  "source_commit": "pending_commit",
+  "source_commit": "a3b9c9b",
   "findings": [
     {
       "type": "implementation_evidence",
