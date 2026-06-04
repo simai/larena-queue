@@ -1,11 +1,11 @@
 {
-  "schema": "larena.package_spec_ref.v1",
+  "schema": "larena.package_specs_reference.v1",
   "package": "larena/queue",
   "specs_repo": "simai/larena-specs",
-  "specs_commit": "7c580ae",
-  "launch_record_ref": "specs/implementation-planning/launch-records/queue-repository-enforcement-baseline.json",
-  "package_spec_ref": "specs/packages/queue/package.json",
-  "package_dna_ref": "specs/packages/queue/dna.json",
-  "features_ref": "specs/packages/queue/features.json",
-  "mode": "read_only_reference"
+  "specs_commit": "b5d1270ed4939908844e701b12b5a1c2dca074e7",
+  "package_spec": "specs/packages/queue/package.json",
+  "package_dna": "specs/packages/queue/dna.json",
+  "features_index": "specs/packages/queue/features.json",
+  "canonical_update_allowed": false,
+  "graph_sync_proposal_required": true
 }

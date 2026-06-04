@@ -1,3 +1,5 @@
 parameters:
-  level: 8
-  paths: []
+  level: 5
+  paths:
+    - scripts
+    - tools
