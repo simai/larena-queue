@@ -1,5 +1,5 @@
 # Implementation Summary
 
-The active legacy tree for `larena/queue` was moved to an external local quarantine backup and the repository was rebuilt as a clean Larena pre-codegen baseline.
+The active repository tree for `larena/queue` was reconciled with the current Larena package repository enforcement validator.
 
-No runtime implementation code was created.
+No runtime implementation code was created by this cleanup.
