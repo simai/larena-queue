@@ -2,4 +2,13 @@
 
 declare(strict_types=1);
 
-echo "Larena Queue clean pre-codegen baseline test command passed; no package implementation code has started.\n";
+$tests = [
+    __DIR__ . '/../tests/Unit/JobDescriptorContractTest.php',
+    __DIR__ . '/../tests/Unit/QueueRuntimeFailsClosedTest.php',
+];
+
+foreach ($tests as $test) {
+    require $test;
+}
+
+echo "Larena Queue contract tests passed.\n";

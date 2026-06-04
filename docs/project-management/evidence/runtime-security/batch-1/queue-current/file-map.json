@@ -1,0 +1,32 @@
+{
+  "schema": "larena.package_batch_file_map.v1",
+  "package": "larena/queue",
+  "launch_record_ref": "specs/implementation-planning/launch-records/queue-batch-1-contract-skeletons-current.json",
+  "allowed_changed_files": [
+    ".larena/launch-context.json",
+    "phpstan.neon.dist",
+    "scripts/lint.php",
+    "scripts/test-placeholder.php",
+    "scripts/validate-larena-package.php",
+    "src/Contracts/JobDescriptor.php",
+    "src/Contracts/QueueDecision.php",
+    "src/Contracts/QueueJob.php",
+    "src/Contracts/QueueRuntime.php",
+    "src/Enums/JobStatus.php",
+    "src/Enums/QueueDecisionStatus.php",
+    "src/Enums/QueuePriority.php",
+    "src/Enums/RuntimeProfile.php",
+    "tests/Unit/JobDescriptorContractTest.php",
+    "tests/Unit/QueueRuntimeFailsClosedTest.php"
+  ],
+  "evidence_files": [
+    "docs/project-management/evidence/runtime-security/batch-1/queue-current/README.md",
+    "docs/project-management/evidence/runtime-security/batch-1/queue-current/implementation-summary.md",
+    "docs/project-management/evidence/runtime-security/batch-1/queue-current/tests.md",
+    "docs/project-management/evidence/runtime-security/batch-1/queue-current/smoke.md",
+    "docs/project-management/evidence/runtime-security/batch-1/queue-current/file-map.json",
+    "docs/project-management/evidence/runtime-security/batch-1/queue-current/deviations.json",
+    "docs/project-management/evidence/runtime-security/batch-1/queue-current/graph-sync-proposal.json",
+    "docs/project-management/evidence/runtime-security/batch-1/queue-current/code-review-feedback.md"
+  ]
+}
