@@ -1,0 +1,8 @@
+{
+  "schema": "larena.graph_sync_proposal.v1",
+  "package": "larena/queue",
+  "status": "no_change_required",
+  "canonical_update_allowed": false,
+  "reason": "The implementation follows the existing Queue ownership, lifecycle, lease, heartbeat, retry, diagnostics and Backup relation already present in Larena Specs.",
+  "proposals": []
+}

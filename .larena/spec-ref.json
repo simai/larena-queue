@@ -2,10 +2,12 @@
   "schema": "larena.package_specs_reference.v1",
   "package": "larena/queue",
   "specs_repo": "simai/larena-specs",
-  "specs_commit": "b5d1270ed4939908844e701b12b5a1c2dca074e7",
+  "specs_commit": "f4b99151236e6b05323261dbf025771b380316a0",
   "package_spec": "specs/packages/queue/package.json",
   "package_dna": "specs/packages/queue/dna.json",
   "features_index": "specs/packages/queue/features.json",
+  "implementation_contract": "docs/implementation-planning/queue-durable-runtime-v1.md",
+  "launch_record": "specs/implementation-planning/launch-records/queue-durable-runtime-v1.json",
   "canonical_update_allowed": false,
   "graph_sync_proposal_required": true
 }

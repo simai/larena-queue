@@ -117,7 +117,13 @@ $errors = [];
 
 foreach ($changedFiles as $changedFile) {
     $file = normalize_path($changedFile);
-    $exactlyAllowed = in_array($file, $allowedFiles, true);
+    $explicitlyAllowed = false;
+    foreach ($allowedFiles as $allowedPattern) {
+        if (matches_pattern($file, $allowedPattern)) {
+            $explicitlyAllowed = true;
+            break;
+        }
+    }
     $evidenceAllowed = $evidencePath !== '' && str_starts_with($file, $evidencePath . '/');
 
     if ($repositoryResetPreCodegen && !file_exists($file)) {
@@ -137,13 +143,13 @@ foreach ($changedFiles as $changedFile) {
     }
 
     foreach ($forbiddenFiles as $pattern) {
-        if (matches_pattern($file, $pattern) && !$exactlyAllowed) {
+        if (matches_pattern($file, $pattern) && !$explicitlyAllowed) {
             $errors[] = $file . ' matches forbidden pattern ' . $pattern;
             continue 2;
         }
     }
 
-    if (!$exactlyAllowed && !$evidenceAllowed) {
+    if (!$explicitlyAllowed && !$evidenceAllowed) {
         $errors[] = $file . ' is outside allowed_files and evidence_path';
     }
 }

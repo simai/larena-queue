@@ -19,6 +19,6 @@ enum JobStatus: string
 
     public function isTerminal(): bool
     {
-        return in_array($this, [self::Failed, self::Cancelled, self::Completed], true);
+        return in_array($this, [self::TimedOut, self::Failed, self::Cancelled, self::Completed], true);
     }
 }

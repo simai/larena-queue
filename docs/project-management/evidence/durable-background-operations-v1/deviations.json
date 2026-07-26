@@ -1,0 +1,10 @@
+{
+  "schema": "larena.queue.durable_runtime_v1.deviations.v1",
+  "status": "no_unapproved_deviations",
+  "accepted_scope_notes": [
+    "Laravel worker process supervision remains application-owned.",
+    "Cancellation is cooperative and enforced at Queue execution checkpoints.",
+    "Signed web tick, scheduler, remote brokers and frontend are excluded.",
+    "MySQL and first-consumer acceptance remain later goal batches."
+  ]
+}

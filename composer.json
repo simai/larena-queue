@@ -10,6 +10,9 @@
     }
   ],
   "require": {
+    "ext-json": "*",
+    "illuminate/database": "^13.0",
+    "illuminate/support": "^13.0",
     "php": "^8.3"
   },
   "autoload": {
@@ -22,7 +25,17 @@
       "Larena\\Queue\\Tests\\": "tests/"
     }
   },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Larena\\Queue\\Providers\\QueueServiceProvider"
+      ]
+    }
+  },
   "require-dev": {
+    "ext-pdo": "*",
+    "ext-pdo_sqlite": "*",
+    "laravel/framework": "^13.0",
     "phpstan/phpstan": "^2.0"
   },
   "scripts": {

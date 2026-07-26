@@ -1,8 +1,8 @@
 package: larena/queue
 title: Larena Queue
-status: repository_prepared
+status: implementation_in_progress
 cluster: runtime-security
-batch: batch-0-clean-pre-codegen-baseline
+batch: durable-background-operations-v1
 features:
   - queue.admin_observability
   - queue.job_descriptor_registry
@@ -14,4 +14,4 @@ runtime:
   php: "^8.3"
   laravel: "^13.0"
 evidence:
-  path: docs/project-management/evidence/runtime-security/batch-0/queue-clean-baseline/
+  path: docs/project-management/evidence/durable-background-operations-v1/

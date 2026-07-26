@@ -1,0 +1,17 @@
+{
+  "schema": "larena.queue.durable_runtime_v1.file_map.v1",
+  "runtime": {
+    "database/migrations/2026_07_26_000000_create_larena_queue_tables.php": "reversible job and attempt persistence",
+    "src/Storage/DatabaseQueueStore.php": "transactional lifecycle and lease persistence",
+    "src/Runtime/DurableQueueDispatcher.php": "registered idempotent dispatch",
+    "src/Runtime/DurableQueueWorker.php": "handler execution and sanitized lifecycle transitions",
+    "src/Runtime/QueueControlService.php": "status cancel retry delete and reclaim controls",
+    "src/Runtime/JobTypeRegistry.php": "immutable descriptor and handler registry",
+    "src/Providers/QueueServiceProvider.php": "Laravel bindings and migration discovery"
+  },
+  "acceptance": {
+    "tests/Integration/DurableQueueLifecycleTest.php": "SQLite lifecycle restart failure and migration acceptance",
+    "tests/Unit/JobDescriptorContractTest.php": "descriptor surface stability",
+    "tests/Unit/QueueRuntimeFailsClosedTest.php": "fail-closed status contract"
+  }
+}

@@ -19,6 +19,10 @@ interface JobDescriptor
 
     public function maxAttempts(): int;
 
+    public function retryDelaySeconds(): int;
+
+    public function leaseSeconds(): int;
+
     public function idempotencyKeyStrategy(): string;
 
     public function priority(): QueuePriority;

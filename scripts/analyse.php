@@ -9,5 +9,5 @@ if (!is_file($phpstan)) {
     exit(0);
 }
 
-passthru($phpstan . ' analyse --configuration=phpstan.neon.dist --no-progress', $exitCode);
+passthru($phpstan . ' analyse --configuration=phpstan.neon.dist --no-progress --memory-limit=512M', $exitCode);
 exit($exitCode);

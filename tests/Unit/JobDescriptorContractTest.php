@@ -16,6 +16,8 @@ foreach ([
     'handlerRef',
     'timeoutSeconds',
     'maxAttempts',
+    'retryDelaySeconds',
+    'leaseSeconds',
     'idempotencyKeyStrategy',
     'priority',
     'auditPolicy',
