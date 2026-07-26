@@ -176,9 +176,16 @@ final readonly class DatabaseQueueStore
                 'lease_expires_at' => $this->date($expiresAt),
                 'updated_at' => $this->date($now),
             ]);
-        if ($updated !== 1) {
-            throw new QueueOperationFailed('lease_heartbeat_rejected');
+        if ($updated === 1) {
+            return;
         }
+        if ($updated === 0 && $this->leaseQuery($lease)
+            ->whereNull('cancel_requested_at')
+            ->where('lease_expires_at', '>', $this->date($now))
+            ->exists()) {
+            return;
+        }
+        throw new QueueOperationFailed('lease_heartbeat_rejected');
     }
 
     public function cancellationRequested(QueueLease $lease): bool
