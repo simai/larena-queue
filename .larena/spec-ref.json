@@ -2,7 +2,7 @@
   "schema": "larena.package_specs_reference.v1",
   "package": "larena/queue",
   "specs_repo": "simai/larena-specs",
-  "specs_commit": "f4b99151236e6b05323261dbf025771b380316a0",
+  "specs_commit": "a8f9ef239b91d62f8ec41f1715493af3a30b2c7a",
   "package_spec": "specs/packages/queue/package.json",
   "package_dna": "specs/packages/queue/dna.json",
   "features_index": "specs/packages/queue/features.json",

@@ -6,6 +6,7 @@ namespace Larena\Queue\Runtime;
 
 use DateInterval;
 use Larena\Queue\Contracts\QueueClock;
+use Larena\Queue\Contracts\QueueWorker;
 use Larena\Queue\Data\QueueExecutionContext;
 use Larena\Queue\Data\QueueJobSnapshot;
 use Larena\Queue\Exceptions\QueueExecutionCancelled;
@@ -14,7 +15,7 @@ use Larena\Queue\Exceptions\QueueOperationFailed;
 use Larena\Queue\Storage\DatabaseQueueStore;
 use Throwable;
 
-final readonly class DurableQueueWorker
+final readonly class DurableQueueWorker implements QueueWorker
 {
     public function __construct(
         private JobTypeRegistry $registry,

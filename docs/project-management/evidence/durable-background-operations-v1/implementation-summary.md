@@ -11,6 +11,7 @@ Implemented a database-backed Queue runtime with:
 - sanitized terminal result metadata and failure reason codes;
 - explicit retry, cancellation, deletion and status contracts;
 - Laravel package provider and reversible Queue-owned migrations.
+- bounded `larena:queue-work` command for an external process supervisor.
 
 Queue contains no Backup business logic, public route, frontend, scheduler,
 signed web tick or production-readiness claim.

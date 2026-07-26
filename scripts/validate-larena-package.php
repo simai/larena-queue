@@ -76,6 +76,7 @@ if (!in_array(($launchContext['status'] ?? null), [
     'repository_prepared_pending_review',
     'coding_started',
     'contract_skeleton_review_passed',
+    'evidence_recorded',
 ], true)) {
     $errors[] = 'launch-context status is not allowed for this repository state.';
 }

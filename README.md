@@ -8,6 +8,11 @@ leases, heartbeat, retry, timeout, cooperative cancellation, crash reclaim and
 sanitized diagnostics. Laravel applications discover the package provider and
 its reversible Queue-owned migrations.
 
+The package also registers `larena:queue-work`. The command processes one job
+by default and accepts a bounded `--max-jobs=1..100` option, so an external
+process supervisor can invoke it without embedding consumer business logic or
+turning Queue into a scheduler.
+
 Consumers keep ownership of authorization, Audit policy, payload validation
 and business execution. Queue stores bounded payloads and result metadata but
 does not store raw secrets or absorb consumer business logic.

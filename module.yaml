@@ -1,6 +1,6 @@
 package: larena/queue
 title: Larena Queue
-status: implementation_in_progress
+status: evidence_recorded
 cluster: runtime-security
 batch: durable-background-operations-v1
 features:

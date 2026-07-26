@@ -7,7 +7,9 @@ namespace Larena\Queue\Providers;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\ServiceProvider;
+use Larena\Queue\Commands\QueueWorkCommand;
 use Larena\Queue\Contracts\QueueClock;
+use Larena\Queue\Contracts\QueueWorker;
 use Larena\Queue\Runtime\DurableQueueDispatcher;
 use Larena\Queue\Runtime\DurableQueueWorker;
 use Larena\Queue\Runtime\JobTypeRegistry;
@@ -30,11 +32,16 @@ final class QueueServiceProvider extends ServiceProvider
         );
         $this->app->scoped(DurableQueueDispatcher::class);
         $this->app->scoped(DurableQueueWorker::class);
+        $this->app->alias(DurableQueueWorker::class, QueueWorker::class);
         $this->app->scoped(QueueControlService::class);
     }
 
     public function boot(): void
     {
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([QueueWorkCommand::class]);
+        }
     }
 }
