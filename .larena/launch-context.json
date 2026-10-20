@@ -25,6 +25,7 @@
     "composer.json",
     "composer.lock",
     "module.yaml",
+    "monitoring.yaml",
     "README.md",
     "CHANGELOG.md",
     "config/*",
@@ -77,5 +78,8 @@
   "rollback_refs": [
     "legacy-before-larena-reset-20260604103516",
     "legacy/pre-larena-reset-20260604103516"
+  ],
+  "owner_decisions": [
+    "runtime metrics phase 2 (owner, 2026-10-20: «метрики по образцу Федерации — запросы, очередь, фронтенд»): the durable worker reports queue.job and queue.wait to larena/monitoring through its Metrics contract resolved from the container when bound; queue keeps no dependency on larena/monitoring"
   ]
 }

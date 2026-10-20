@@ -13,6 +13,13 @@ by default and accepts a bounded `--max-jobs=1..100` option, so an external
 process supervisor can invoke it without embedding consumer business logic or
 turning Queue into a scheduler.
 
+When `larena/monitoring` is installed, the worker reports `queue.job` (run
+duration, tags `job_type` and `outcome` ok / error / timeout / rejected) and
+`queue.wait` (from `available_at` to the claim) through its `Metrics` contract,
+and the provider declares them by registering `monitoring.yaml` in the metric
+catalog. Queue does not depend on monitoring: the contract is resolved from the
+container only when bound, otherwise nothing is recorded.
+
 Consumers keep ownership of authorization, Audit policy, payload validation
 and business execution. Queue stores bounded payloads and result metadata but
 does not store raw secrets or absorb consumer business logic.

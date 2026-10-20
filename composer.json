@@ -57,7 +57,10 @@
   },
   "config": {
     "sort-packages": true,
-    "allow-plugins": {}
+    "allow-plugins": {},
+    "platform": {
+      "php": "8.3.31"
+    }
   },
   "minimum-stability": "stable",
   "prefer-stable": true

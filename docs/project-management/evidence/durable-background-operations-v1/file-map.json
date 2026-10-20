@@ -7,11 +7,14 @@
     "src/Runtime/DurableQueueWorker.php": "handler execution and sanitized lifecycle transitions",
     "src/Runtime/QueueControlService.php": "status cancel retry delete and reclaim controls",
     "src/Runtime/JobTypeRegistry.php": "immutable descriptor and handler registry",
-    "src/Providers/QueueServiceProvider.php": "Laravel bindings and migration discovery"
+    "src/Providers/QueueServiceProvider.php": "Laravel bindings and migration discovery",
+    "src/Runtime/QueueMetrics.php": "optional queue.job and queue.wait reporting through larena/monitoring's Metrics contract, no-op without it",
+    "monitoring.yaml": "queue metric declarations registered into larena/monitoring's catalog when installed"
   },
   "acceptance": {
     "tests/Integration/DurableQueueLifecycleTest.php": "SQLite lifecycle restart failure and migration acceptance",
     "tests/Unit/JobDescriptorContractTest.php": "descriptor surface stability",
-    "tests/Unit/QueueRuntimeFailsClosedTest.php": "fail-closed status contract"
+    "tests/Unit/QueueRuntimeFailsClosedTest.php": "fail-closed status contract",
+    "tests/Unit/QueueMetricsTest.php": "job type codes, silent no-op without monitoring, catalog registration, worker outcomes and wait"
   }
 }
