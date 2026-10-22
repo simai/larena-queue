@@ -2,7 +2,9 @@
 # only when larena/monitoring is installed; queue never depends on it.
 metrics:
   # One durable job run (claim to finish). job_type is the registered job type code; outcome ok, error
-  # (failed result or exception), timeout or rejected (job type not registered, or cancelled while running).
+  # (failed result or exception), timeout or rejected (job type not registered, or cancelled while running);
+  # a run whose handler answered «not yet» (deferred, rescheduled without spending an attempt) is outcome
+  # skipped with reason deferred.
   queue.job:
     type: duration
     tags: [job_type]

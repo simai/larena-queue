@@ -6,6 +6,7 @@ namespace Larena\Queue\Runtime;
 
 use DateInterval;
 use DateTimeImmutable;
+use Larena\Queue\Contracts\DeferrableJobDescriptor;
 use Larena\Queue\Contracts\QueueClock;
 use Larena\Queue\Contracts\QueueWorker;
 use Larena\Queue\Data\QueueExecutionContext;
@@ -57,6 +58,16 @@ final readonly class DurableQueueWorker implements QueueWorker
             if ($result->succeeded) {
                 $this->store->complete($lease, $result, $this->clock->now());
                 $outcome = 'ok';
+            } elseif ($result->deferSeconds !== null) {
+                // «Not yet»: rescheduled without spending the attempt, until the descriptor's deferral limit.
+                $outcome = $this->store->defer(
+                    $lease,
+                    $result->deferSeconds,
+                    $result->reasonCode ?? 'job_deferred',
+                    $this->maxDeferrals($lease->job->jobType),
+                    $result->metadata,
+                    $this->clock->now(),
+                ) ? 'deferred' : 'error';
             } else {
                 $this->store->fail(
                     $lease,
@@ -105,6 +116,15 @@ final readonly class DurableQueueWorker implements QueueWorker
         }
 
         return $this->store->require($lease->job->id);
+    }
+
+    private function maxDeferrals(string $jobType): int
+    {
+        $descriptor = $this->registry->descriptor($jobType);
+
+        return $descriptor instanceof DeferrableJobDescriptor
+            ? $descriptor->maxDeferrals()
+            : DeferrableJobDescriptor::DEFAULT_MAX_DEFERRALS;
     }
 
     /** From the moment the job became available (available_at, or created_at when later) until it was claimed. */

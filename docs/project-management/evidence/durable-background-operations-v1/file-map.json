@@ -9,12 +9,16 @@
     "src/Runtime/JobTypeRegistry.php": "immutable descriptor and handler registry",
     "src/Providers/QueueServiceProvider.php": "Laravel bindings and migration discovery",
     "src/Runtime/QueueMetrics.php": "optional queue.job and queue.wait reporting through larena/monitoring's Metrics contract, no-op without it",
-    "monitoring.yaml": "queue metric declarations registered into larena/monitoring's catalog when installed"
+    "monitoring.yaml": "queue metric declarations registered into larena/monitoring's catalog when installed",
+    "database/migrations/2026_10_22_000000_add_larena_queue_job_deferrals.php": "reversible deferral_count column: deferrals counted apart from attempts",
+    "src/Contracts/DeferrableJobDescriptor.php": "additive descriptor contract bounding a job's deferrals (default 288)",
+    "src/Data/QueueJobResult.php": "bounded handler results: success, failure, and retryLater (not yet, run again after 1..3600 s without spending an attempt)"
   },
   "acceptance": {
     "tests/Integration/DurableQueueLifecycleTest.php": "SQLite lifecycle restart failure and migration acceptance",
     "tests/Unit/JobDescriptorContractTest.php": "descriptor surface stability",
     "tests/Unit/QueueRuntimeFailsClosedTest.php": "fail-closed status contract",
-    "tests/Unit/QueueMetricsTest.php": "job type codes, silent no-op without monitoring, catalog registration, worker outcomes and wait"
+    "tests/Unit/QueueMetricsTest.php": "job type codes, silent no-op without monitoring, catalog registration, worker outcomes and wait",
+    "tests/Integration/QueueDeferralTest.php": "retryLater reschedules with its delay, spends no attempt, fails at the deferral limit, cancels while deferred, metrics outcome skipped reason deferred, reversible migration"
   }
 }

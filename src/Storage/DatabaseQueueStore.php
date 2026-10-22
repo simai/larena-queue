@@ -112,7 +112,7 @@ final readonly class DatabaseQueueStore
         return $this->database->transaction(function () use ($workerRef, $now): ?QueueLease {
             $this->reclaimExpiredInsideTransaction($now);
             $row = $this->database->table('larena_queue_jobs')
-                ->whereIn('status', [JobStatus::Queued->value, JobStatus::Retrying->value])
+                ->whereIn('status', [JobStatus::Queued->value, JobStatus::Retrying->value, JobStatus::Deferred->value])
                 ->whereNull('cancel_requested_at')
                 ->where('available_at', '<=', $this->date($now))
                 ->orderByDesc('priority')
@@ -254,6 +254,54 @@ final readonly class DatabaseQueueStore
         );
     }
 
+    /**
+     * «Not yet» from the handler: the job waits $delaySeconds and runs again, without spending the attempt it was
+     * claimed with (its attempt record is dropped and the count given back). The deferral is counted; past
+     * $maxDeferrals the job fails with job_deferral_limit_reached instead. Returns whether the job was deferred.
+     *
+     * @param array<string, scalar|null> $metadata
+     */
+    public function defer(
+        QueueLease $lease,
+        int $delaySeconds,
+        string $reasonCode,
+        int $maxDeferrals,
+        array $metadata,
+        DateTimeImmutable $now,
+    ): bool {
+        $job = $this->require($lease->job->id);
+        if ($job->deferrals >= $maxDeferrals) {
+            $this->finishLease($lease, JobStatus::Failed, 'job_deferral_limit_reached', $metadata, $now);
+
+            return false;
+        }
+        $delay = max(1, min(QueueJobResult::MAX_DEFERRAL_SECONDS, $delaySeconds));
+        $this->database->transaction(function () use ($lease, $delay, $reasonCode, $metadata, $now, $job): void {
+            $updated = $this->leaseQuery($lease)->update([
+                'status' => JobStatus::Deferred->value,
+                'attempts' => max(0, $lease->job->attempts - 1),
+                'deferral_count' => $job->deferrals + 1,
+                'available_at' => $this->date($now->add(new DateInterval('PT'.$delay.'S'))),
+                'lease_owner_hash' => null,
+                'lease_token_hash' => null,
+                'lease_expires_at' => null,
+                'heartbeat_at' => null,
+                'failure_reason' => $this->reason($reasonCode),
+                'result_json' => $this->resultJson($metadata),
+                'updated_at' => $this->date($now),
+            ]);
+            if ($updated !== 1) {
+                throw new QueueOperationFailed('lease_not_owned');
+            }
+            $this->database->table('larena_queue_attempts')
+                ->where('job_id', $lease->job->id)
+                ->where('attempt_number', $lease->job->attempts)
+                ->delete();
+        });
+
+        return true;
+    }
+
     public function cancelLease(QueueLease $lease, DateTimeImmutable $now): void
     {
         $this->finishLease($lease, JobStatus::Cancelled, 'cancel_requested', [], $now);
@@ -270,7 +318,7 @@ final readonly class DatabaseQueueStore
                 'cancel_requested_at' => $this->date($now),
                 'updated_at' => $this->date($now),
             ];
-            if (in_array($job->status, [JobStatus::Queued, JobStatus::Retrying], true)) {
+            if (in_array($job->status, [JobStatus::Queued, JobStatus::Retrying, JobStatus::Deferred], true)) {
                 $values += [
                     'status' => JobStatus::Cancelled->value,
                     'failure_reason' => 'cancel_requested',
@@ -291,7 +339,10 @@ final readonly class DatabaseQueueStore
                 throw new QueueOperationFailed('job_not_retryable');
             }
             $this->database->table('larena_queue_attempts')->where('job_id', $jobId)->delete();
-            $this->database->table('larena_queue_jobs')->where('id', $jobId)->update([
+            $row = $this->database->table('larena_queue_jobs')->where('id', $jobId)->first();
+            // A job retried by hand starts its deferrals afresh too (when the deferral migration has run).
+            $deferrals = $row !== null && property_exists($row, 'deferral_count') ? ['deferral_count' => 0] : [];
+            $this->database->table('larena_queue_jobs')->where('id', $jobId)->update($deferrals + [
                 'status' => JobStatus::Queued->value,
                 'attempts' => 0,
                 'available_at' => $this->date($now),
@@ -459,6 +510,7 @@ final readonly class DatabaseQueueStore
             result: $result,
             createdAt: $this->parseDate((string) $row->created_at),
             updatedAt: $this->parseDate((string) $row->updated_at),
+            deferrals: property_exists($row, 'deferral_count') ? (int) $row->deferral_count : 0,
         );
     }
 

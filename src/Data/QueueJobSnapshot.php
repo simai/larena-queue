@@ -13,6 +13,7 @@ final readonly class QueueJobSnapshot
     /**
      * @param array<string, mixed> $payload
      * @param array<string, scalar|null> $result
+     * @param int $deferrals how many times the handler answered «not yet» (they spend no attempts)
      */
     public function __construct(
         public string $id,
@@ -37,6 +38,7 @@ final readonly class QueueJobSnapshot
         public array $result,
         public DateTimeImmutable $createdAt,
         public DateTimeImmutable $updatedAt,
+        public int $deferrals = 0,
     ) {
     }
 

@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Larena\Queue\Runtime;
 
 use InvalidArgumentException;
-use Larena\Queue\Contracts\JobDescriptor;
+use Larena\Queue\Contracts\DeferrableJobDescriptor;
 use Larena\Queue\Enums\QueuePriority;
 use Larena\Queue\Enums\RuntimeProfile;
 
-final readonly class ImmutableJobDescriptor implements JobDescriptor
+final readonly class ImmutableJobDescriptor implements DeferrableJobDescriptor
 {
     /**
      * @param list<RuntimeProfile> $runtimeProfiles
+     * @param int $maxDeferrals how many times the handler may answer «not yet» before the job fails
      */
     public function __construct(
         private string $jobType,
@@ -26,6 +27,7 @@ final readonly class ImmutableJobDescriptor implements JobDescriptor
         private string $auditPolicy,
         private string $payloadSchemaRef,
         private array $runtimeProfiles = [RuntimeProfile::LarenaDispatcher],
+        private int $maxDeferrals = self::DEFAULT_MAX_DEFERRALS,
     ) {
         if (
             preg_match('/\A[a-z][a-z0-9_.-]{0,99}\z/D', $jobType) !== 1
@@ -39,6 +41,8 @@ final readonly class ImmutableJobDescriptor implements JobDescriptor
             || $leaseSeconds < 1
             || $leaseSeconds > $timeoutSeconds
             || $runtimeProfiles === []
+            || $maxDeferrals < 0
+            || $maxDeferrals > 100000
         ) {
             throw new InvalidArgumentException('Invalid immutable Queue job descriptor.');
         }
@@ -57,4 +61,5 @@ final readonly class ImmutableJobDescriptor implements JobDescriptor
     public function payloadSchemaRef(): string { return $this->payloadSchemaRef; }
     public function allowsSecretReferences(): bool { return false; }
     public function allowedRuntimeProfiles(): array { return $this->runtimeProfiles; }
+    public function maxDeferrals(): int { return $this->maxDeferrals; }
 }

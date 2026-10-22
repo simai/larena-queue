@@ -80,6 +80,7 @@
     "legacy/pre-larena-reset-20260604103516"
   ],
   "owner_decisions": [
-    "runtime metrics phase 2 (owner, 2026-10-20: «метрики по образцу Федерации — запросы, очередь, фронтенд»): the durable worker reports queue.job and queue.wait to larena/monitoring through its Metrics contract resolved from the container when bound; queue keeps no dependency on larena/monitoring"
+    "runtime metrics phase 2 (owner, 2026-10-20: «метрики по образцу Федерации — запросы, очередь, фронтенд»): the durable worker reports queue.job and queue.wait to larena/monitoring through its Metrics contract resolved from the container when bound; queue keeps no dependency on larena/monitoring",
+    "long waits (owner, 2026-10-22: a queued job that must wait, e.g. admin's storage export while the storage's list is still being built, must not fail after the fixed retry delay): a handler answers QueueJobResult::retryLater(delay, reason); the job is rescheduled (delay bounded at 3600 s) without spending an attempt, deferrals are counted in deferral_count and bounded by the descriptor's max_deferrals (default 288), past which it fails with job_deferral_limit_reached; queue.job records it as outcome skipped, reason deferred"
   ]
 }

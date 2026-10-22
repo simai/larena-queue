@@ -23,6 +23,12 @@ final class QueueMetrics
 
     public const array OUTCOMES = ['ok', 'error', 'timeout', 'rejected'];
 
+    /**
+     * The worker's outcome for a run whose handler answered «not yet» (QueueJobResult::retryLater). Monitoring
+     * admits only its own outcome codes, so it is recorded as outcome=skipped with reason=deferred.
+     */
+    public const string DEFERRED = 'deferred';
+
     /** @var (Closure(): ?object)|null */
     private ?Closure $resolver;
 
@@ -53,10 +59,12 @@ final class QueueMetrics
 
     public function job(string $jobType, string $outcome, float $ms): void
     {
-        $this->timing('queue.job', $ms, [
-            'job_type' => self::code($jobType),
-            'outcome' => in_array($outcome, self::OUTCOMES, true) ? $outcome : 'error',
-        ]);
+        $this->timing('queue.job', $ms, $outcome === self::DEFERRED
+            ? ['job_type' => self::code($jobType), 'outcome' => 'skipped', 'reason' => self::DEFERRED]
+            : [
+                'job_type' => self::code($jobType),
+                'outcome' => in_array($outcome, self::OUTCOMES, true) ? $outcome : 'error',
+            ]);
     }
 
     public function wait(string $jobType, float $ms): void
