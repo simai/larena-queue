@@ -43,7 +43,12 @@
     "tests/Support/*",
     "scripts/*",
     "tools/*",
-    "docs/project-management/evidence/durable-background-operations-v1/*"
+    "docs/project-management/evidence/durable-background-operations-v1/*",
+    "LICENSE",
+    "NOTICE",
+    "AUTHORS",
+    "CITATION.cff",
+    "REUSE.toml"
   ],
   "forbidden_files": [
     "routes/*",
